@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36414.22 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService", "InventoryService\InventoryService.csproj", "{AFA5B1B1-0A3A-41DB-A3D0-832F7A37A18F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComplianceService", "ComplianceService\ComplianceService.csproj", "{20CBE5C7-4095-4092-9035-D261F3D1C521}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{AFA5B1B1-0A3A-41DB-A3D0-832F7A37A18F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFA5B1B1-0A3A-41DB-A3D0-832F7A37A18F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFA5B1B1-0A3A-41DB-A3D0-832F7A37A18F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20CBE5C7-4095-4092-9035-D261F3D1C521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20CBE5C7-4095-4092-9035-D261F3D1C521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20CBE5C7-4095-4092-9035-D261F3D1C521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20CBE5C7-4095-4092-9035-D261F3D1C521}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
