@@ -22,6 +22,13 @@ namespace InventoryService.Repositories
                .Include(e => e.Device)
                .FirstOrDefaultAsync(e => e.Id == id);
 
+        public Task<List<Entitlement>> GetByLicenseIdAsync(int licenseId) =>
+            _db.Entitlements
+               .Include(e => e.User)
+               .Include(e => e.Device)
+               .Where(e => e.LicenseId == licenseId)
+               .ToListAsync();
+
         public async Task AddAsync(Entitlement entitlement)
         {
             await _db.Entitlements.AddAsync(entitlement);

@@ -9,16 +9,18 @@ namespace InventoryService.Repositories
         public LicenseRepository(AppDbContext db) => _db = db;
 
         public Task<List<License>> GetAllAsync() =>
-            _db.Licenses.Include(l => l.VendorContract)
-                        .Include(l => l.Entitlements)
-                        .Include(l => l.Installations)
-                        .ToListAsync();
+            _db.Licenses
+               .Include(l => l.VendorContract)
+               .Include(l => l.Entitlements)
+               .Include(l => l.Installations)
+               .ToListAsync();
 
         public Task<License?> GetByIdAsync(int id) =>
-            _db.Licenses.Include(l => l.VendorContract)
-                        .Include(l => l.Entitlements)
-                        .Include(l => l.Installations)
-                        .FirstOrDefaultAsync(l => l.Id == id);
+            _db.Licenses
+               .Include(l => l.VendorContract)
+               .Include(l => l.Entitlements)
+               .Include(l => l.Installations)
+               .FirstOrDefaultAsync(l => l.Id == id);
 
         public Task<License?> GetWithEntitlementsAsync(int id) =>
             _db.Licenses

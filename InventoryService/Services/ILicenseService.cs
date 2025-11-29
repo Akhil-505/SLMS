@@ -10,5 +10,8 @@ namespace InventoryService.Services
         Task<License> UpdateAsync(int id, License update);
         Task<bool> DeleteAsync(int id);
         Task<List<License>> SearchAsync(string? product, string? vendor);
+
+        // Important for EntitlementService
+        Task UpdateAssignedCountAsync(int licenseId);
     }
 }

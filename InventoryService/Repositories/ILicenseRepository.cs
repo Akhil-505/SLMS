@@ -10,6 +10,8 @@ namespace InventoryService.Repositories
         Task AddAsync(License license);
         Task UpdateAsync(License license);
         Task DeleteAsync(License license);
+
+        // Used by EntitlementService
         Task<License?> GetWithEntitlementsAsync(int id);
     }
 }

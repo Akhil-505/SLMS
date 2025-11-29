@@ -1,16 +1,21 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace InventoryService.Models
 {
     public class Entitlement
     {
+        [Key]
         public int Id { get; set; }
 
+        // FK to License
         public int LicenseId { get; set; }
         [JsonIgnore]
         public License? License { get; set; }
 
-        public int? UserId { get; set; }
+        // assignment target: either user or device (or both nullable)
+        public string? UserId { get; set; }
         [JsonIgnore]
         public User? User { get; set; }
 
@@ -20,5 +25,7 @@ namespace InventoryService.Models
 
         public DateTime AssignedAt { get; set; } = DateTime.UtcNow;
         public DateTime? ExpiresAt { get; set; }
+
+       
     }
 }

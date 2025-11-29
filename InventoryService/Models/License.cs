@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace InventoryService.Models
@@ -7,6 +8,7 @@ namespace InventoryService.Models
 
     public class License
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -18,7 +20,16 @@ namespace InventoryService.Models
         public string SKU { get; set; } = "";
 
         public LicenseTypeEnum LicenseType { get; set; }
+
+        // TOTAL seats purchased
         public int TotalEntitlements { get; set; }
+
+        // CURRENT assigned (persisted)
+        public int Assigned { get; set; } = 0;
+
+        // Available = TotalEntitlements - Assigned
+        [NotMapped]
+        public int Available => TotalEntitlements - Assigned;
 
         public decimal Cost { get; set; }
         public string Currency { get; set; } = "USD";
@@ -32,7 +43,6 @@ namespace InventoryService.Models
         [JsonIgnore]
         public VendorContract? VendorContract { get; set; }
         [JsonIgnore]
-     
         public List<Entitlement> Entitlements { get; set; } = new();
         [JsonIgnore]
         public List<InstalledSoftware> Installations { get; set; } = new();

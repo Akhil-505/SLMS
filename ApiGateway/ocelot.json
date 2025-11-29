@@ -33,8 +33,9 @@
     // --------------------------------------------
     // INVENTORY SERVICE (PORT 5001)
     // --------------------------------------------
+
     {
-      "DownstreamPathTemplate": "/api/licenses",
+      "DownstreamPathTemplate": "/api/licenses/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -42,12 +43,12 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/inventory/licenses",
+      "UpstreamPathTemplate": "/inventory/licenses/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
     {
-      "DownstreamPathTemplate": "/api/entitlements",
+      "DownstreamPathTemplate": "/api/entitlements/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -55,12 +56,38 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/inventory/entitlements",
+      "UpstreamPathTemplate": "/inventory/entitlements/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/installations/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/inventory/installations/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/devices/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/inventory/devices/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
     {
-      "DownstreamPathTemplate": "/api/installations",
+      "DownstreamPathTemplate": "/api/users/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -68,12 +95,12 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/inventory/installations",
+      "UpstreamPathTemplate": "/inventory/users/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
     {
-      "DownstreamPathTemplate": "/api/devices",
+      "DownstreamPathTemplate": "/api/softwarecatalog/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -81,12 +108,12 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/inventory/devices",
+      "UpstreamPathTemplate": "/inventory/catalog/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
     {
-      "DownstreamPathTemplate": "/api/users",
+      "DownstreamPathTemplate": "/api/vendorcontracts/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -94,12 +121,12 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/inventory/users",
+      "UpstreamPathTemplate": "/inventory/vendor/contracts/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
     {
-      "DownstreamPathTemplate": "/api/catalog",
+      "DownstreamPathTemplate": "/api/installationhistory/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -107,8 +134,8 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/inventory/catalog",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/inventory/installations/history/{everything}",
+      "UpstreamHttpMethod": [ "GET" ]
     },
 
     // --------------------------------------------
@@ -183,7 +210,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/api/dashboard",
+      "DownstreamPathTemplate": "/api/dashboard/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -191,7 +218,7 @@
           "Port": 5003
         }
       ],
-      "UpstreamPathTemplate": "/dashboard",
+      "UpstreamPathTemplate": "/dashboard/{everything}",
       "UpstreamHttpMethod": [ "GET" ]
     },
 

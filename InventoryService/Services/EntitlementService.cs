@@ -24,21 +24,36 @@ namespace InventoryService.Services
             var license = await _licenseRepo.GetByIdAsync(entitlement.LicenseId)
                 ?? throw new Exception("License not found");
 
+            // Prevent overuse
             int count = await _repo.CountAssignmentsForLicense(entitlement.LicenseId);
-
             if (count >= license.TotalEntitlements)
                 throw new Exception("No entitlements available");
 
+            // Create entitlement
             await _repo.AddAsync(entitlement);
+
+            // Update assigned count
+            license.Assigned = count + 1;
+            await _licenseRepo.UpdateAsync(license);
+
             return entitlement;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var e = await _repo.GetByIdAsync(id);
-            if (e == null) return false;
+            var ent = await _repo.GetByIdAsync(id);
+            if (ent == null) return false;
 
-            await _repo.DeleteAsync(e);
+            var license = await _licenseRepo.GetByIdAsync(ent.LicenseId);
+            if (license == null) return false;
+
+            await _repo.DeleteAsync(ent);
+
+            // Recompute assigned count
+            int count = await _repo.CountAssignmentsForLicense(ent.LicenseId);
+            license.Assigned = count;
+            await _licenseRepo.UpdateAsync(license);
+
             return true;
         }
     }

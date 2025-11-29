@@ -16,21 +16,24 @@ namespace InventoryService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() =>
-            Ok(await _service.GetAllAsync());
+        public async Task<IActionResult> GetAll()
+        {
+            var licenses = await _service.GetAllAsync();
+            return Ok(licenses.Select(l => new LicenseDto(l)));
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var license = await _service.GetByIdAsync(id);
-            return license == null ? NotFound() : Ok(license);
+            var lic = await _service.GetByIdAsync(id);
+            return lic == null ? NotFound() : Ok(new LicenseDto(lic));
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(License license)
         {
             var created = await _service.CreateAsync(license);
-            return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
+            return CreatedAtAction(nameof(Get), new { id = created.Id }, new LicenseDto(created));
         }
 
         [HttpPut("{id}")]
@@ -38,7 +41,8 @@ namespace InventoryService.Controllers
         {
             try
             {
-                return Ok(await _service.UpdateAsync(id, update));
+                var lic = await _service.UpdateAsync(id, update);
+                return Ok(new LicenseDto(lic));
             }
             catch
             {
@@ -54,9 +58,12 @@ namespace InventoryService.Controllers
         }
 
         [HttpGet("search")]
-        public async Task<IActionResult> Search([FromQuery] string? product, [FromQuery] string? vendor)
+        public async Task<IActionResult> Search(
+            [FromQuery] string? product,
+            [FromQuery] string? vendor)
         {
-            return Ok(await _service.SearchAsync(product, vendor));
+            var res = await _service.SearchAsync(product, vendor);
+            return Ok(res.Select(l => new LicenseDto(l)));
         }
     }
 }

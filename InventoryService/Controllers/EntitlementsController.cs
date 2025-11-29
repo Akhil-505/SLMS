@@ -1,4 +1,5 @@
-﻿using InventoryService.Models;
+﻿
+using InventoryService.Models;
 using InventoryService.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +17,17 @@ namespace InventoryService.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll() =>
-            Ok(await _service.GetAllAsync());
+        public async Task<IActionResult> GetAll()
+        {
+            var ents = await _service.GetAllAsync();
+            return Ok(ents.Select(e => new EntitlementDto(e)));
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var ent = await _service.GetByIdAsync(id);
-            return ent == null ? NotFound() : Ok(ent);
+            return ent == null ? NotFound() : Ok(new EntitlementDto(ent));
         }
 
         [HttpPost]
@@ -32,14 +36,13 @@ namespace InventoryService.Controllers
             try
             {
                 var assigned = await _service.AssignAsync(entitlement);
-                return Ok(assigned);
+                return Ok(new EntitlementDto(assigned));
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
-
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

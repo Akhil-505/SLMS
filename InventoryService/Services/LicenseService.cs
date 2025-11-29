@@ -6,10 +6,12 @@ namespace InventoryService.Services
     public class LicenseService : ILicenseService
     {
         private readonly ILicenseRepository _repo;
+        private readonly IEntitlementRepository _entitlementRepo;
 
-        public LicenseService(ILicenseRepository repo)
+        public LicenseService(ILicenseRepository repo, IEntitlementRepository entitlementRepo)
         {
             _repo = repo;
+            _entitlementRepo = entitlementRepo;
         }
 
         public Task<List<License>> GetAllAsync() => _repo.GetAllAsync();
@@ -32,8 +34,11 @@ namespace InventoryService.Services
             existing.SKU = update.SKU;
             existing.LicenseType = update.LicenseType;
             existing.TotalEntitlements = update.TotalEntitlements;
-            existing.ExpiryDate = update.ExpiryDate;
             existing.Cost = update.Cost;
+            existing.Currency = update.Currency;
+            existing.ExpiryDate = update.ExpiryDate;
+            existing.PurchaseDate = update.PurchaseDate;
+            existing.Notes = update.Notes;
 
             await _repo.UpdateAsync(existing);
             return existing;
@@ -50,5 +55,20 @@ namespace InventoryService.Services
 
         public Task<List<License>> SearchAsync(string? product, string? vendor) =>
             _repo.SearchAsync(product, vendor);
+
+        /// <summary>
+        /// Recalculate Assigned count = number of active entitlements
+        /// </summary>
+        public async Task UpdateAssignedCountAsync(int licenseId)
+        {
+            var ents = await _entitlementRepo.GetAllAsync();
+            var count = ents.Count(e => e.LicenseId == licenseId);
+
+            var lic = await _repo.GetByIdAsync(licenseId);
+            if (lic == null) return;
+
+            lic.Assigned = count;
+            await _repo.UpdateAsync(lic);
+        }
     }
 }
