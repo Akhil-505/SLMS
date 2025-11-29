@@ -56,9 +56,7 @@ namespace InventoryService.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Department = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -66,7 +64,7 @@ namespace InventoryService.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,7 +100,7 @@ namespace InventoryService.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DeviceId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Hostname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OwnerUserId = table.Column<int>(type: "int", nullable: true),
+                    OwnerUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Department = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastSeen = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -114,7 +112,7 @@ namespace InventoryService.Migrations
                         name: "FK_Devices_Users_OwnerUserId",
                         column: x => x.OwnerUserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.SetNull);
                 });
 
@@ -126,6 +124,7 @@ namespace InventoryService.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LicenseId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
+                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     DeviceId = table.Column<int>(type: "int", nullable: true),
                     AssignedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpiresAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -145,10 +144,10 @@ namespace InventoryService.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Entitlements_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Entitlements_Users_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -218,9 +217,9 @@ namespace InventoryService.Migrations
                 column: "LicenseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entitlements_UserId",
+                name: "IX_Entitlements_UserId1",
                 table: "Entitlements",
-                column: "UserId");
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InstallationHistories_InstalledSoftwareId",

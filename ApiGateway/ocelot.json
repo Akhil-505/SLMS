@@ -1,9 +1,9 @@
 {
   "Routes": [
 
-    // =============================
-    // AUTH SERVICE (PUBLIC)
-    // =============================
+    // --------------------------------------------
+    // AUTH SERVICE (PORT 5000)
+    // --------------------------------------------
     {
       "DownstreamPathTemplate": "/api/auth/{everything}",
       "DownstreamScheme": "http",
@@ -17,9 +17,6 @@
       "UpstreamHttpMethod": [ "POST", "GET" ]
     },
 
-    // =============================
-    // USER PROFILE (All roles)
-    // =============================
     {
       "DownstreamPathTemplate": "/api/user/{everything}",
       "DownstreamScheme": "http",
@@ -30,32 +27,12 @@
         }
       ],
       "UpstreamPathTemplate": "/user/{everything}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": { "role": "^(ITAdmin|Finance|Auditor|ReadOnly)$" }
+      "UpstreamHttpMethod": [ "GET" ]
     },
 
-    // =============================
-    // INVENTORY MODULE
-    // =============================
-
-    // DEVICES (ITAdmin, Auditor, ReadOnly)
-    {
-      "DownstreamPathTemplate": "/api/devices",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ],
-      "UpstreamPathTemplate": "/inventory/devices",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": { "role": "^(ITAdmin|Auditor|ReadOnly)$" }
-    },
-
-    // SOFTWARE CATALOG (All roles)
+    // --------------------------------------------
+    // INVENTORY SERVICE (PORT 5001)
+    // --------------------------------------------
     {
       "DownstreamPathTemplate": "/api/licenses",
       "DownstreamScheme": "http",
@@ -66,12 +43,9 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/licenses",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": { "role": "^(ITAdmin|Finance|Auditor|ReadOnly)$" }
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
-    // ENTITLEMENTS (ITAdmin full, Finance Read, Auditor Read)
     {
       "DownstreamPathTemplate": "/api/entitlements",
       "DownstreamScheme": "http",
@@ -82,14 +56,9 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/entitlements",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": {
-        "role": "^(ITAdmin|Finance|Auditor|ReadOnly)$"
-      }
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
-    // INSTALLATIONS (All roles can read; only ITAdmin modifies)
     {
       "DownstreamPathTemplate": "/api/installations",
       "DownstreamScheme": "http",
@@ -100,18 +69,51 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/installations",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": {
-        "role": "^(ITAdmin|Finance|Auditor|ReadOnly)$"
-      }
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
-    // =============================
-    // COMPLIANCE SERVICE
-    // =============================
+    {
+      "DownstreamPathTemplate": "/api/devices",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/inventory/devices",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
 
-    // COMPLIANCE CHECKS (ITAdmin only)
+    {
+      "DownstreamPathTemplate": "/api/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/inventory/users",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/catalog",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "UpstreamPathTemplate": "/inventory/catalog",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+
+    // --------------------------------------------
+    // COMPLIANCE SERVICE (PORT 5002)
+    // --------------------------------------------
     {
       "DownstreamPathTemplate": "/api/compliance/{everything}",
       "DownstreamScheme": "http",
@@ -122,28 +124,9 @@
         }
       ],
       "UpstreamPathTemplate": "/compliance/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": { "role": "ITAdmin" }
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
     },
 
-    // RULES (ITAdmin full, Auditor read-only)
-    {
-      "DownstreamPathTemplate": "/api/rules/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ],
-      "UpstreamPathTemplate": "/rules/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": { "role": "^(ITAdmin|Auditor)$" }
-    },
-
-    // EVENTS (ITAdmin full, Auditor read)
     {
       "DownstreamPathTemplate": "/api/events/{everything}",
       "DownstreamScheme": "http",
@@ -154,12 +137,22 @@
         }
       ],
       "UpstreamPathTemplate": "/events/{everything}",
-      "UpstreamHttpMethod": [ "GET", "PUT" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": { "role": "^(ITAdmin|Auditor)$" }
+      "UpstreamHttpMethod": [ "GET", "PUT" ]
     },
 
-    // RENEWAL MANAGEMENT (Finance + ITAdmin)
+    {
+      "DownstreamPathTemplate": "/api/rules/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/rules/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    },
+
     {
       "DownstreamPathTemplate": "/api/renewal/{everything}",
       "DownstreamScheme": "http",
@@ -170,29 +163,12 @@
         }
       ],
       "UpstreamPathTemplate": "/renewal/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": { "role": "^(ITAdmin|Finance)$" }
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
     },
 
-    // =============================
-    // REPORTING SERVICE
-    // =============================
-    {
-      "DownstreamPathTemplate": "/api/dashboard",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/dashboard",
-      "UpstreamHttpMethod": [ "GET" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": { "role": "^(ITAdmin|Finance|Auditor|ReadOnly)$" }
-    },
-
+    // --------------------------------------------
+    // REPORTING SERVICE (PORT 5003)
+    // --------------------------------------------
     {
       "DownstreamPathTemplate": "/api/reporting/{everything}",
       "DownstreamScheme": "http",
@@ -203,11 +179,33 @@
         }
       ],
       "UpstreamPathTemplate": "/reporting/{everything}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "AuthenticationOptions": { "AuthenticationProviderKey": "JwtBearer" },
-      "RouteClaimsRequirement": {
-        "role": "^(ITAdmin|Finance|Auditor|ReadOnly)$"
-      }
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/dashboard",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/dashboard",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    {
+      "DownstreamPathTemplate": "/api/trends/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/trends/{everything}",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ],
 

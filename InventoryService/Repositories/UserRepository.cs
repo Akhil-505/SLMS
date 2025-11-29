@@ -11,12 +11,12 @@ namespace InventoryService.Repositories
         public Task<List<User>> GetAllAsync() =>
             _db.Users.Include(u => u.Devices).Include(u => u.Entitlements).ToListAsync();
 
-        public Task<User?> GetByIdAsync(int id) =>
+        public Task<User?> GetByIdAsync(string id) =>
             _db.Users
                .Include(u => u.Devices)
                .Include(u => u.Entitlements)
                .ThenInclude(e => e.License)
-               .FirstOrDefaultAsync(u => u.Id == id);
+               .FirstOrDefaultAsync(u => u.UserId==id);
 
         public Task<User?> GetByUserIdAsync(string userId) =>
             _db.Users

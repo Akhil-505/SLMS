@@ -20,7 +20,7 @@ namespace InventoryService.Controllers
             Ok(await _service.GetAllAsync());
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get(string id)
         {
             var user = await _service.GetByIdAsync(id);
             return user == null ? NotFound() : Ok(user);
@@ -37,11 +37,11 @@ namespace InventoryService.Controllers
         public async Task<IActionResult> Create(User user)
         {
             var created = await _service.CreateAsync(user);
-            return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
+            return CreatedAtAction(nameof(Get), new { id = created.UserId }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, User update)
+        public async Task<IActionResult> Update(string id, User update)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace InventoryService.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(string id)
         {
             var ok = await _service.DeleteAsync(id);
             return ok ? NoContent() : NotFound();

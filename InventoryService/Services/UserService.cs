@@ -13,7 +13,7 @@ namespace InventoryService.Services
         }
 
         public Task<List<User>> GetAllAsync() => _repo.GetAllAsync();
-        public Task<User?> GetByIdAsync(int id) => _repo.GetByIdAsync(id);
+        public Task<User?> GetByIdAsync(string id) => _repo.GetByIdAsync(id);
         public Task<User?> GetByUserIdAsync(string empId) => _repo.GetByUserIdAsync(empId);
 
         public async Task<User> CreateAsync(User user)
@@ -22,7 +22,7 @@ namespace InventoryService.Services
             return user;
         }
 
-        public async Task<User> UpdateAsync(int id, User update)
+        public async Task<User> UpdateAsync(string id, User update)
         {
             var existing = await _repo.GetByIdAsync(id);
             if (existing == null) throw new Exception("User not found");
@@ -35,7 +35,7 @@ namespace InventoryService.Services
             return existing;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(string id)
         {
             var user = await _repo.GetByIdAsync(id);
             if (user == null) return false;

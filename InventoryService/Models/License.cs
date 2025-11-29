@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace InventoryService.Models
 {
@@ -28,8 +29,12 @@ namespace InventoryService.Models
         public string Notes { get; set; } = "";
 
         // Navigation
+        [JsonIgnore]
         public VendorContract? VendorContract { get; set; }
+        [JsonIgnore]
+     
         public List<Entitlement> Entitlements { get; set; } = new();
+        [JsonIgnore]
         public List<InstalledSoftware> Installations { get; set; } = new();
     }
 }
