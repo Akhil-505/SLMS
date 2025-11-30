@@ -30,9 +30,10 @@ builder.Services.AddSwaggerGen();
 
 // =============================================================
 // 4. JWT Authentication
+// NOTE: Use the same scheme name as configured in ocelot.json ("JwtBearer").
+// Use AddAuthentication(string) overload to set default scheme explicitly.
 // =============================================================
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication("JwtBearer")
     .AddJwtBearer("JwtBearer", options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -50,6 +51,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// Add authorization services
+builder.Services.AddAuthorization();
+
 // =============================================================
 // 5. Add Ocelot
 // =============================================================
@@ -63,16 +67,17 @@ var app = builder.Build();
 app.UseCors("AllowAll");
 
 // =============================================================
-// 7. Swagger
-// =============================================================
-app.UseSwagger();
-app.UseSwaggerUI();
-
-// =============================================================
-// 8. Use Authentication & Authorization
+// 7. Use Authentication & Authorization
+// Move authentication/authorization before Swagger so challenges have default scheme
 // =============================================================
 app.UseAuthentication();
 app.UseAuthorization();
+
+// =============================================================
+// 8. Swagger
+// =============================================================
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // =============================================================
 // 9. Run Ocelot Middleware

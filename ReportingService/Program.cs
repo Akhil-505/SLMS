@@ -1,6 +1,9 @@
 using ReportingService.Repositories.Inventory;
 using ReportingService.Repositories.Compliance;
 using ReportingService.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +47,37 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<ITrendService, TrendService>();
 
 // =============================================================
-// 7. CORS Policy
+// 7. JWT Authentication
+// =============================================================
+var jwtKey = builder.Configuration["Jwt:Key"];
+// Allowed roles for this service
+var allowedRoles = new[] { "Admin", "Finance", "Auditor", "ReadOnly" };
+
+if (!string.IsNullOrEmpty(jwtKey))
+{
+    builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+            };
+        });
+}
+
+// Always add authorization policies so they are available even if JWT is not configured
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdministratorsOnly", policy =>
+        policy.RequireRole(allowedRoles));
+});
+
+// =============================================================
+// 8. CORS Policy
 // =============================================================
 builder.Services.AddCors(options =>
 {
@@ -57,9 +90,16 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // =============================================================
-// 8. Middleware
+// 9. Middleware
 // =============================================================
 app.UseCors("AllowAll");
+
+// Ensure authentication/authorization run before Swagger/UI so authorization challenges have a default scheme
+if (!string.IsNullOrEmpty(jwtKey))
+{
+    app.UseAuthentication();
+}
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -67,6 +107,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Authentication & Authorization middleware
+if (!string.IsNullOrEmpty(jwtKey))
+{
+    app.UseAuthentication();
+}
 app.UseAuthorization();
+
 app.MapControllers();
 app.Run();
