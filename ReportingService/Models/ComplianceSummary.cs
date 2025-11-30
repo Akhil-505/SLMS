@@ -2,10 +2,12 @@
 {
     public class ComplianceSummary
     {
-        public int TotalLicenses { get; set; }
-        public int CompliantLicenses { get; set; }
-        public int NonCompliantLicenses { get; set; }
-        public int TotalUnauthorizedInstalls { get; set; }
-        public int TotalExpiringSoon { get; set; }
+        public int TotalViolations { get; set; }
+
+        public int Overuse { get; set; }
+        public int Underuse { get; set; }
+        public int Expiry { get; set; }
+        public int Mismatch { get; set; }
+        public int Unused { get; set; }
     }
 }

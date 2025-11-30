@@ -17,6 +17,6 @@
     {
         public int? LicenseId { get; set; }
         public string ProductName { get; set; } = "";
-        public string DeviceId { get; set; } = "";
+        public int DeviceId { get; set; } 
     }
 }

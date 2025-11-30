@@ -61,30 +61,25 @@ namespace ReportingService.Services
         }
 
         // --------------------------------------------------------
-        // 2. COMPLIANCE SUMMARY (High level counts)
+        // 2. COMPLIANCE SUMMARY (High-level counts)
         // --------------------------------------------------------
         public async Task<ComplianceSummary> GetComplianceSummaryAsync()
         {
-            var report = await _complianceRepo.GetReportAsync();
-
-            if (report == null)
-                return new ComplianceSummary();
-
-            int compliant = report.LicenseCompliance.Count(l => l.IsCompliant);
-            int nonCompliant = report.LicenseCompliance.Count(l => !l.IsCompliant);
+            var events = await _complianceRepo.GetReportAsync();
 
             return new ComplianceSummary
             {
-                TotalLicenses = report.LicenseCompliance.Count,
-                CompliantLicenses = compliant,
-                NonCompliantLicenses = nonCompliant,
-                TotalUnauthorizedInstalls = report.UnauthorizedInstalls.Count,
-                TotalExpiringSoon = report.ExpiringLicenses.Count
+                TotalViolations = events.Count,
+                Overuse = events.Count(e => e.EventType == "overuse"),
+                Underuse = events.Count(e => e.EventType == "underuse"),
+                Expiry = events.Count(e => e.EventType == "expiry"),
+                Mismatch = events.Count(e => e.EventType == "mismatch"),
+                Unused = events.Count(e => e.EventType == "unused")
             };
         }
 
         // --------------------------------------------------------
-        // 3. DASHBOARD REPORT (Main API for UI)
+        // 3. DASHBOARD REPORT
         // --------------------------------------------------------
         public async Task<DashboardReport> GetDashboardReportAsync()
         {

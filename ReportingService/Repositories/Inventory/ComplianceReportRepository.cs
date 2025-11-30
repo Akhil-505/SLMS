@@ -14,14 +14,16 @@ namespace ReportingService.Repositories.Compliance
             _config = config;
         }
 
-        public async Task<ComplianceReportDto?> GetReportAsync()
+        public async Task<List<ComplianceEventModel>> GetReportAsync()
         {
-            string url = $"{_config["ComplianceService:BaseUrl"]}/api/compliance/report";
+            string url = $"{_config["ComplianceService:BaseUrl"]}/api/compliance/events";
 
             var response = await _http.GetAsync(url);
             response.EnsureSuccessStatusCode();
 
-            return await response.Content.ReadFromJsonAsync<ComplianceReportDto>();
+            var events = await response.Content.ReadFromJsonAsync<List<ComplianceEventModel>>();
+
+            return events ?? new List<ComplianceEventModel>();
         }
     }
 }

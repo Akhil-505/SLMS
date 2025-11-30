@@ -4,6 +4,6 @@ namespace ReportingService.Repositories.Compliance
 {
     public interface IComplianceReportRepository
     {
-        Task<ComplianceReportDto?> GetReportAsync();
+        Task<List<ComplianceEventModel>> GetReportAsync();
     }
 }
