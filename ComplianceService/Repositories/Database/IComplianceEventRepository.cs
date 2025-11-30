@@ -1,13 +1,12 @@
-﻿using ComplianceService.Models.Database;
+﻿using ComplianceService.Models;
 
-namespace ComplianceService.Repositories.Database
+namespace ComplianceService.Repositories
 {
     public interface IComplianceEventRepository
     {
-        Task<List<ComplianceEventEntity>> GetAllAsync();
-        Task<List<ComplianceEventEntity>> GetUnresolvedAsync();
-        Task<ComplianceEventEntity?> GetByIdAsync(int id);
-        Task AddAsync(ComplianceEventEntity entity);
-        Task UpdateAsync(ComplianceEventEntity entity);
+        Task AddAsync(ComplianceEvent evt);
+        Task<IEnumerable<ComplianceEvent>> GetAllAsync();
+        Task<ComplianceEvent?> GetExistingOpenEventAsync(int licenseId, string eventType);
+
     }
 }

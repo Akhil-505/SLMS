@@ -142,7 +142,7 @@
     // COMPLIANCE SERVICE (PORT 5002)
     // --------------------------------------------
     {
-      "DownstreamPathTemplate": "/api/compliance/{everything}",
+      "DownstreamPathTemplate": "/api/compliance/run",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -150,12 +150,11 @@
           "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/compliance/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+      "UpstreamPathTemplate": "/compliance/run",
+      "UpstreamHttpMethod": [ "POST" ]
     },
-
     {
-      "DownstreamPathTemplate": "/api/events/{everything}",
+      "DownstreamPathTemplate": "/api/compliance/events",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -163,34 +162,8 @@
           "Port": 5002
         }
       ],
-      "UpstreamPathTemplate": "/events/{everything}",
-      "UpstreamHttpMethod": [ "GET", "PUT" ]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/rules/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ],
-      "UpstreamPathTemplate": "/rules/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/renewal/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ],
-      "UpstreamPathTemplate": "/renewal/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamPathTemplate": "/compliance/events",
+      "UpstreamHttpMethod": [ "GET" ]
     },
 
     // --------------------------------------------

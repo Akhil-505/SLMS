@@ -30,7 +30,7 @@ namespace AuthService.Services
         public async Task<bool> RegisterAsync(RegisterRequest request)
         {
             // 1. Validate role (RBAC enforcement)
-            var allowedRoles = new[] { "ITAdmin", "Finance", "Auditor", "ReadOnly" };
+            var allowedRoles = new[] { "Admin", "Finance", "Auditor", "ReadOnly" };
 
             if (!allowedRoles.Contains(request.Role))
                 return false;

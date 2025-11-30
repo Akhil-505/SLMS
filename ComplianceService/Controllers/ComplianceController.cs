@@ -7,37 +7,23 @@ namespace ComplianceService.Controllers
     [Route("api/[controller]")]
     public class ComplianceController : ControllerBase
     {
-        private readonly IComplianceEngine _engine;
+        private readonly ComplianceEngineService _engine;
 
-        public ComplianceController(IComplianceEngine engine)
+        public ComplianceController(ComplianceEngineService engine)
         {
             _engine = engine;
         }
 
-        // -----------------------------------------------------------
-        // 1. Get FULL compliance report (no DB persistence)
-        // -----------------------------------------------------------
-        [HttpGet("report")]
-        public async Task<IActionResult> GetReport()
+        [HttpPost("run")]
+        public async Task<IActionResult> Run()
         {
-            var report = await _engine.GenerateFullReportAsync();
-            return Ok(report);
+            return Ok(await _engine.RunAsync());
         }
 
-        // -----------------------------------------------------------
-        // 2. Run compliance checks and PERSIST events
-        // -----------------------------------------------------------
-        [HttpPost("run")]
-        public async Task<IActionResult> RunComplianceEngine()
+        [HttpGet("events")]
+        public async Task<IActionResult> Events()
         {
-            var results = await _engine.RunChecksAsync();
-            await _engine.PersistFindingsAsync(results);
-
-            return Ok(new
-            {
-                message = "Compliance checks executed successfully.",
-                totalNonCompliant = results.Count(x => !x.IsCompliant)
-            });
+            return Ok(await _engine.GetEventsAsync());
         }
     }
 }

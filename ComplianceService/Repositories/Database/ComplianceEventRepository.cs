@@ -1,36 +1,37 @@
-﻿using ComplianceService.Models.Database;
+﻿using ComplianceService.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ComplianceService.Repositories.Database
+namespace ComplianceService.Repositories
 {
     public class ComplianceEventRepository : IComplianceEventRepository
     {
-        private readonly ComplianceDbContext _db;
+        private readonly AppDbContext _db;
 
-        public ComplianceEventRepository(ComplianceDbContext db)
+        public ComplianceEventRepository(AppDbContext db)
         {
             _db = db;
         }
 
-        public Task<List<ComplianceEventEntity>> GetAllAsync() =>
-            _db.ComplianceEvents.OrderByDescending(e => e.CreatedAt).ToListAsync();
-
-        public Task<List<ComplianceEventEntity>> GetUnresolvedAsync() =>
-            _db.ComplianceEvents.Where(e => !e.Resolved).OrderByDescending(e => e.CreatedAt).ToListAsync();
-
-        public Task<ComplianceEventEntity?> GetByIdAsync(int id) =>
-            _db.ComplianceEvents.FirstOrDefaultAsync(e => e.Id == id);
-
-        public async Task AddAsync(ComplianceEventEntity entity)
+        public async Task AddAsync(ComplianceEvent evt)
         {
-            await _db.ComplianceEvents.AddAsync(entity);
+            await _db.ComplianceEvents.AddAsync(evt);
             await _db.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(ComplianceEventEntity entity)
+        public async Task<IEnumerable<ComplianceEvent>> GetAllAsync()
         {
-            _db.ComplianceEvents.Update(entity);
-            await _db.SaveChangesAsync();
+            return await _db.ComplianceEvents
+                .OrderByDescending(e => e.CreatedAt)
+                .ToListAsync();
         }
+        public async Task<ComplianceEvent?> GetExistingOpenEventAsync(int licenseId, string eventType)
+        {
+            return await _db.ComplianceEvents
+                .Where(e => e.LicenseId == licenseId &&
+                            e.EventType == eventType &&
+                            e.Resolved == false)
+                .FirstOrDefaultAsync();
+        }
+
     }
 }

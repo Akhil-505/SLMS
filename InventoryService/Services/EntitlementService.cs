@@ -51,7 +51,7 @@ namespace InventoryService.Services
 
             // Recompute assigned count
             int count = await _repo.CountAssignmentsForLicense(ent.LicenseId);
-            license.Assigned = count+1;
+            license.Assigned = count;
             await _licenseRepo.UpdateAsync(license);
 
             return true;
