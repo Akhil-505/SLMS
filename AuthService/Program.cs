@@ -143,11 +143,11 @@ var app = builder.Build();
 // =============================================================
 // 11. APPLY MIGRATIONS (Dev)
 // =============================================================
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
-    db.Database.Migrate();
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var db = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
+//    db.Database.Migrate();
+//}
 
 // =============================================================
 // 12. MIDDLEWARE PIPELINE

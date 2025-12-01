@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailService", "MailService\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging", "Common.Logging\Common.Logging.csproj", "{897B8C36-2807-4679-BF41-475225C4695B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService", "NotificationService\NotificationService.csproj", "{8AB8FADE-06CE-4714-868B-D1E47DAA8793}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{897B8C36-2807-4679-BF41-475225C4695B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{897B8C36-2807-4679-BF41-475225C4695B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{897B8C36-2807-4679-BF41-475225C4695B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB8FADE-06CE-4714-868B-D1E47DAA8793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB8FADE-06CE-4714-868B-D1E47DAA8793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB8FADE-06CE-4714-868B-D1E47DAA8793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB8FADE-06CE-4714-868B-D1E47DAA8793}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
