@@ -70,5 +70,28 @@ namespace InventoryService.Services
             lic.Assigned = count;
             await _repo.UpdateAsync(lic);
         }
+        public async Task<List<License>> GetExpiringLicensesAsync(int days)
+        {
+            if (days < 0) throw new ArgumentException("Days cannot be negative");
+
+            // You can add extra business logic here if needed.
+            // For example: Filter out licenses that are marked "Do Not Renew" 
+            // or send an alert log if too many licenses are expiring at once.
+
+            return await _repo.GetExpiringLicensesAsync(days);
+        }
+        //changes
+        public async Task<bool> UpdateExpiryDateAsync(int licenseId, DateTime newDate)
+        {
+            var license = await _repo.GetByIdAsync(licenseId);
+            if (license == null) return false;
+
+            // Logic: Update the date and add a note
+            license.ExpiryDate = newDate;
+            license.Notes += $" [Renewed on {DateTime.UtcNow.ToShortDateString()}]";
+
+            await _repo.UpdateAsync(license);
+            return true;
+        }
     }
 }

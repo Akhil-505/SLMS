@@ -1,11 +1,13 @@
 ﻿using InventoryService.Models;
 using InventoryService.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    //[Authorize(Roles = "Admin")]
     public class DevicesController : ControllerBase
     {
         private readonly IDeviceService _service;
@@ -15,9 +17,11 @@ namespace InventoryService.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "Admin, Administrator")]
         [HttpGet]
         public async Task<IActionResult> GetAll() =>
             Ok(await _service.GetAllAsync());
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)

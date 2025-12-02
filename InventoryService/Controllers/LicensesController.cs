@@ -1,4 +1,5 @@
-﻿using InventoryService.Models;
+﻿using InventoryService.DTOs;
+using InventoryService.Models;
 using InventoryService.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -64,6 +65,33 @@ namespace InventoryService.Controllers
         {
             var res = await _service.SearchAsync(product, vendor);
             return Ok(res.Select(l => new LicenseDto(l)));
+        }
+        [HttpGet("expiring/{days}")]
+        public async Task<IActionResult> GetExpiring(int days)
+        {
+            try
+            {
+                var result = await _service.GetExpiringLicensesAsync(days);
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal error: " + ex.Message);
+            }
+        }
+        //changes
+        [HttpPut("{id}/expiry")]
+        public async Task<IActionResult> UpdateExpiry(int id, [FromBody] UpdateExpiryDto request)
+        {
+            var success = await _service.UpdateExpiryDateAsync(id, request.NewExpiryDate);
+
+            if (!success) return NotFound("License not found");
+
+            return Ok(new { message = "Expiry date updated successfully." });
         }
     }
 }
