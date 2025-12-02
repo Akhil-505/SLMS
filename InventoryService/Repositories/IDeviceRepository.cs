@@ -12,5 +12,7 @@ namespace InventoryService.Repositories
         Task UpdateAsync(Device device);
         Task DeleteAsync(Device device);
         Task<List<InstalledSoftware>> GetInstalledSoftwareAsync(int deviceId);
+        //added
+        Task<IEnumerable<Device>> GetDevicesLastSeenBeforeAsync(DateTime cutoffDate);
     }
 }

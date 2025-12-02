@@ -70,5 +70,27 @@ namespace InventoryService.Controllers
             var list = await _service.GetInstalledSoftwareAsync(id);
             return Ok(list);
         }
+        //added
+        [HttpGet("inactive")]
+        public async Task<IActionResult> GetInactiveDevices()
+        {
+            try
+            {
+                // We define "30 days" here, or we could pass it as a query parameter
+                var inactiveDevices = await _service.GetInactiveDevicesAsync(1);
+
+                if (inactiveDevices == null || !inactiveDevices.Any())
+                {
+                    return NoContent(); // Returns 204 if no inactive devices found
+                }
+
+                return Ok(inactiveDevices); // Returns 200 with the list
+            }
+            catch (Exception ex)
+            {
+                // Log error here
+                return StatusCode(500, "Internal server error retrieving devices.");
+            }
+        }
     }
 }

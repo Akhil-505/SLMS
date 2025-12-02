@@ -11,5 +11,7 @@ namespace InventoryService.Services
         Task<Device> UpdateAsync(int id, Device update);
         Task<bool> DeleteAsync(int id);
         Task<List<InstalledSoftware>> GetInstalledSoftwareAsync(int deviceId);
+        //added
+        Task<IEnumerable<Device>> GetInactiveDevicesAsync(int daysThreshold);
     }
 }

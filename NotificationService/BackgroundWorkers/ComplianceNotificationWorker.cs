@@ -100,8 +100,26 @@ namespace NotificationService.BackgroundWorkers
                     _logger.LogError(ex, "Compliance Notification Worker failed");
                 }
 
-                var sleep = _config.GetValue<int>("Workers:CompliancePollSeconds", 30);
-                await Task.Delay(TimeSpan.FromSeconds(sleep), stoppingToken);
+                //var sleep = _config.GetValue<int>("Workers:CompliancePollSeconds", 30);
+                //await Task.Delay(TimeSpan.FromSeconds(sleep), stoppingToken);
+
+                var mode = _config.GetValue<string>("Workers:Mode")?.ToLower();
+
+                int seconds;
+
+                if (mode == "test")
+                {
+                    int minutes = _config.GetValue<int>("Workers:PollMinutes_Test", 5);
+                    seconds = minutes * 60;
+                }
+                else // prod
+                {
+                    int hours = _config.GetValue<int>("Workers:PollHours_Prod", 24);
+                    seconds = hours * 3600;
+                }
+
+                await Task.Delay(TimeSpan.FromSeconds(seconds), stoppingToken);
+
             }
         }
     }
