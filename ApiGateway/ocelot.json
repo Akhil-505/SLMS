@@ -206,6 +206,20 @@
       ],
       "UpstreamPathTemplate": "/trends/{everything}",
       "UpstreamHttpMethod": [ "GET" ]
+    },
+    //Renewal Service
+    {
+      "DownstreamPathTemplate": "/api/Renewal/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5015
+        }
+      ],
+      "UpstreamPathTemplate": "/Renewal/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+
     }
   ],
 
