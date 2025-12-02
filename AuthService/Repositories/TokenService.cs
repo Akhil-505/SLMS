@@ -30,11 +30,13 @@ namespace AuthService.Services
                 new Claim(ClaimTypes.Role, user.Role)
             };
 
+            var expiration = DateTime.UtcNow.AddHours(1);
+            Console.WriteLine(expiration);
             var jwt = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),
+                expires: expiration,
                 signingCredentials: creds
             );
 

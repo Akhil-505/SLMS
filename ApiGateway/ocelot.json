@@ -44,7 +44,11 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/licenses/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     {
@@ -57,7 +61,11 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/entitlements/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     {
@@ -70,7 +78,11 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/installations/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ]
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     {
@@ -83,7 +95,11 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/devices/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     {
@@ -96,7 +112,11 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/users/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     {
@@ -109,7 +129,11 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/catalog/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     {
@@ -122,7 +146,11 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/vendor/contracts/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     {
@@ -135,7 +163,11 @@
         }
       ],
       "UpstreamPathTemplate": "/inventory/installations/history/{everything}",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     // --------------------------------------------
@@ -151,7 +183,11 @@
         }
       ],
       "UpstreamPathTemplate": "/compliance/run",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
     {
       "DownstreamPathTemplate": "/api/compliance/events",
@@ -163,7 +199,11 @@
         }
       ],
       "UpstreamPathTemplate": "/compliance/events",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     // --------------------------------------------
@@ -179,7 +219,11 @@
         }
       ],
       "UpstreamPathTemplate": "/reporting/{everything}",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     {
@@ -192,7 +236,11 @@
         }
       ],
       "UpstreamPathTemplate": "/dashboard/{everything}",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
     },
 
     {
@@ -205,6 +253,31 @@
         }
       ],
       "UpstreamPathTemplate": "/trends/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
+    },
+
+    // --------------------------------------------
+    // MAIL SERVICE (PORT 5004)
+    // --------------------------------------------
+    {
+      "DownstreamPathTemplate": "/api/email/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "UpstreamPathTemplate": "/mail/{everything}",
+      "UpstreamHttpMethod": [ "POST" ],
+      //"AuthenticationOptions": {
+      //  "AuthenticationProviderKey": "JwtBearer",
+      //  "AllowedScopes": []
+      //}
       "UpstreamHttpMethod": [ "GET" ]
     },
     //Renewal Service
@@ -221,6 +294,8 @@
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
 
     }
+
+
   ],
 
   "GlobalConfiguration": {

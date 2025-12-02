@@ -9,10 +9,11 @@ namespace AuthService.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
-
-        public AuthController(IAuthService authService)
+        private readonly HttpEmailClient _emailClient;
+        public AuthController(IAuthService authService, HttpEmailClient emailClient)
         {
             _authService = authService;
+            _emailClient = emailClient;
         }
 
         // ----------------------------------------------------
@@ -26,8 +27,39 @@ namespace AuthService.Controllers
             if (!success)
                 return BadRequest("Username or email already exists.");
 
-            return Ok("User registered successfully.");
+            string body = $"Hello {request.Username}";
+
+            var emailResponse = await _emailClient.SendEmailAsync(new()
+            {
+                To = request.Email,
+                Subject = "Welcome to SLMs",
+                Body = body
+            });
+
+            // ---------------------------------------------
+            // Handle email response properly
+            // ---------------------------------------------
+            if (!emailResponse.IsSuccessStatusCode)
+            {
+                // Optional: read error content
+                string? error = await emailResponse.Content.ReadAsStringAsync();
+
+                return Ok(new
+                {
+                    Message = "User registered successfully, but email could not be sent.",
+                    EmailSent = false,
+                    Error = error
+                });
+            }
+
+            return Ok(new
+            {
+                Message = "User registered successfully.",
+                EmailSent = true
+            });
         }
+
+
 
         // ----------------------------------------------------
         // 2. LOGIN
@@ -56,5 +88,7 @@ namespace AuthService.Controllers
 
             return Ok(response);
         }
+
+        
     }
 }

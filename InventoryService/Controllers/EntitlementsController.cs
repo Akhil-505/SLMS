@@ -1,12 +1,14 @@
 ﻿
 using InventoryService.Models;
 using InventoryService.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    //[Authorize(Roles = "Finance")]
     public class EntitlementsController : ControllerBase
     {
         private readonly IEntitlementService _service;
@@ -50,5 +52,6 @@ namespace InventoryService.Controllers
             var ok = await _service.DeleteAsync(id);
             return ok ? NoContent() : NotFound();
         }
+
     }
 }
