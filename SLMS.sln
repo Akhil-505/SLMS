@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryService", "InventoryService\InventoryService.csproj", "{AFA5B1B1-0A3A-41DB-A3D0-832F7A37A18F}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "AuthService\AuthService.csproj", "{E08DA4BA-8682-4B67-AEF7-810DFC80333F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{693B60F9-FA65-42AF-8EF3-CE59D891960A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenewalService", "RenewalService\RenewalService.csproj", "{56FE070F-2510-42E2-9A09-242CC4A23F67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{693B60F9-FA65-42AF-8EF3-CE59D891960A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{693B60F9-FA65-42AF-8EF3-CE59D891960A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{693B60F9-FA65-42AF-8EF3-CE59D891960A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56FE070F-2510-42E2-9A09-242CC4A23F67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56FE070F-2510-42E2-9A09-242CC4A23F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56FE070F-2510-42E2-9A09-242CC4A23F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56FE070F-2510-42E2-9A09-242CC4A23F67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
