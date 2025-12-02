@@ -9,11 +9,13 @@ namespace RenewalService.Services
         // DEPENDENCIES ARE NOW CLASSES, NOT INTERFACES
         private readonly RenewalRepository _repo;
         private readonly InventoryIntegrationService _inventory;
+        private readonly HttpEmailClient _emailClient;
 
-        public RenewalManager(RenewalRepository repo, InventoryIntegrationService inventory)
+        public RenewalManager(RenewalRepository repo, InventoryIntegrationService inventory, HttpEmailClient emailClient)
         {
             _repo = repo;
             _inventory = inventory;
+            _emailClient = emailClient;
         }
 
         public async Task<List<object>> GetExpiringWithStatusAsync(int days)
@@ -45,13 +47,20 @@ namespace RenewalService.Services
             var expiring = await _inventory.GetExpiringLicensesAsync(days);
             int sentCount = 0;
 
+         
             foreach (var lic in expiring)
             {
                 var existing = await _repo.GetByLicenseIdAsync(lic.Id);
-                if (existing == null)
+                if (existing != null)
                 {
                     sentCount++;
                     // Send Email Logic here...
+                    var emailResponse = await _emailClient.SendEmailAsync(new()
+                    {
+                        To = "shivajisadwale53@gmail.com",
+                        Subject = $"License Getting Expired for {existing.Id}",
+                        Body =$"license is expiring in {days} for licenseid ={existing.Id}"
+            });
                 }
             }
             return sentCount;

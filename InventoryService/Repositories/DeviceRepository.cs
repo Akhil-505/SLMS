@@ -46,5 +46,13 @@ namespace InventoryService.Repositories
                .Include(i => i.License)
                .Where(i => i.DeviceId == deviceId)
                .ToListAsync();
+
+        public async Task<IEnumerable<Device>> GetDevicesLastSeenBeforeAsync(DateTime cutoffDate)
+        {
+            // SQL Translation: SELECT * FROM Devices WHERE LastSeen < @cutoffDate
+            return await _db.Devices
+                                 .Where(d => d.LastSeen < cutoffDate)
+                                 .ToListAsync();
+        }
     }
 }

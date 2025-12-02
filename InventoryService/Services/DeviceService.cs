@@ -49,5 +49,15 @@ namespace InventoryService.Services
 
         public Task<List<InstalledSoftware>> GetInstalledSoftwareAsync(int deviceId) =>
             _repo.GetInstalledSoftwareAsync(deviceId);
+        //added
+        public async Task<IEnumerable<Device>> GetInactiveDevicesAsync(int daysThreshold)
+        {
+            // 1. Calculate the cutoff date (e.g., Today - 30 days)
+            // Using UtcNow is best practice for server-side timestamps
+            DateTime cutoffDate = DateTime.UtcNow.AddDays(-daysThreshold);
+
+            // 2. Call the repository
+            return await _repo.GetDevicesLastSeenBeforeAsync(cutoffDate);
+        }
     }
 }

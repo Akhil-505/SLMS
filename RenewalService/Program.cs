@@ -42,6 +42,17 @@ builder.Services.AddHttpClient<InventoryIntegrationService>(client =>
     };
 });
 
+// =============================================================
+// HTTP CLIENT FOR MAIL SERVICE
+// =============================================================
+builder.Services.AddHttpClient<HttpEmailClient>(client =>
+{
+    var url = builder.Configuration["ServiceUrls:MailService"];
+    if (string.IsNullOrEmpty(url))
+        throw new Exception("MailService URL missing from ServiceUrls configuration.");
+
+    client.BaseAddress = new Uri(url);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

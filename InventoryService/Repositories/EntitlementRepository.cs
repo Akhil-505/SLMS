@@ -49,6 +49,14 @@ namespace InventoryService.Repositories
 
         public Task<int> CountAssignmentsForLicense(int licenseId) =>
             _db.Entitlements.CountAsync(e => e.LicenseId == licenseId);
+        //added
+        public async Task<IEnumerable<Device>> GetDevicesLastSeenBeforeAsync(DateTime cutoffDate)
+        {
+            // SQL Translation: SELECT * FROM Devices WHERE LastSeen < @cutoffDate
+            return await _db.Devices
+                                 .Where(d => d.LastSeen < cutoffDate)
+                                 .ToListAsync();
+        }
 
     }
 }

@@ -86,7 +86,7 @@ namespace RenewalService.Controllers
         public async Task<IActionResult> SendReminders(int days)
         {
             var count = await _manager.SendRemindersAsync(days);
-            return Ok($"Reminders sent to {count} vendors.");
+            return Ok($"Reminders sent .");
         }
 
         // PUT /api/Renewal/5/renewed

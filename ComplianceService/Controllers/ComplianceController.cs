@@ -59,100 +59,100 @@ namespace ComplianceService.Controllers
         //}
 
         [HttpGet("alerts")]
-        public IActionResult GetTrimmedEvents()
+        public async Task<IActionResult> GetTrimmedEvents()
         {
-            var results = new[]
-            {
-        new {
-            id = 8,
-            licenseId = 3,
-            productName = "Adobe Flash",
-            eventType = "expiry",
-            severity = "high",
-            details = "Expires in -0 days",
-            createdAt = "2025-12-01T09:27:48.2738747",
-            resolved = false,
-            resolutionNote = (string?)null
-        },
-        new {
-            id = 7,
-            licenseId = 3,
-            productName = "Adobe Flash",
-            eventType = "underuse",
-            severity = "low",
-            details = "Assigned=0, Total=10",
-            createdAt = "2025-12-01T09:27:48.2714087",
-            resolved = false,
-            resolutionNote = (string?)null
-        },
-        new {
-            id = 6,
-            licenseId = 2,
-            productName = "Microsoft Word",
-            eventType = "unused",
-            severity = "low",
-            details = "No installations found for this license",
-            createdAt = "2025-12-01T09:27:48.2689155",
-            resolved = false,
-            resolutionNote = (string?)null
-        },
-        new {
-            id = 5,
-            licenseId = 2,
-            productName = "Microsoft Word",
-            eventType = "expiry",
-            severity = "high",
-            details = "Expires in -0 days",
-            createdAt = "2025-12-01T09:27:48.2656841",
-            resolved = false,
-            resolutionNote = (string?)null
-        },
-        new {
-            id = 4,
-            licenseId = 2,
-            productName = "Microsoft Word",
-            eventType = "underuse",
-            severity = "low",
-            details = "Assigned=0, Total=100",
-            createdAt = "2025-12-01T09:27:48.2631084",
-            resolved = false,
-            resolutionNote = (string?)null
-        },
-        new {
-            id = 3,
-            licenseId = 1,
-            productName = "Microsoft Office",
-            eventType = "unused",
-            severity = "low",
-            details = "No installations found for this license",
-            createdAt = "2025-12-01T09:27:48.2602439",
-            resolved = false,
-            resolutionNote = (string?)null
-        },
-        new {
-            id = 2,
-            licenseId = 1,
-            productName = "Microsoft Office",
-            eventType = "expiry",
-            severity = "high",
-            details = "Expires in -0 days",
-            createdAt = "2025-12-01T09:27:48.2546737",
-            resolved = false,
-            resolutionNote = (string?)null
-        },
-        new {
-            id = 1,
-            licenseId = 1,
-            productName = "Microsoft Office",
-            eventType = "underuse",
-            severity = "low",
-            details = "Assigned=0, Total=100",
-            createdAt = "2025-12-01T09:27:48.0534151",
-            resolved = false,
-            resolutionNote = (string?)null
-        }
-    };
-
+            //        var results = new[]
+            //        {
+            //    new {
+            //        id = 8,
+            //        licenseId = 3,
+            //        productName = "Adobe Flash",
+            //        eventType = "expiry",
+            //        severity = "high",
+            //        details = "Expires in -0 days",
+            //        createdAt = "2025-12-01T09:27:48.2738747",
+            //        resolved = false,
+            //        resolutionNote = (string?)null
+            //    },
+            //    new {
+            //        id = 7,
+            //        licenseId = 3,
+            //        productName = "Adobe Flash",
+            //        eventType = "underuse",
+            //        severity = "low",
+            //        details = "Assigned=0, Total=10",
+            //        createdAt = "2025-12-01T09:27:48.2714087",
+            //        resolved = false,
+            //        resolutionNote = (string?)null
+            //    },
+            //    new {
+            //        id = 6,
+            //        licenseId = 2,
+            //        productName = "Microsoft Word",
+            //        eventType = "unused",
+            //        severity = "low",
+            //        details = "No installations found for this license",
+            //        createdAt = "2025-12-01T09:27:48.2689155",
+            //        resolved = false,
+            //        resolutionNote = (string?)null
+            //    },
+            //    new {
+            //        id = 5,
+            //        licenseId = 2,
+            //        productName = "Microsoft Word",
+            //        eventType = "expiry",
+            //        severity = "high",
+            //        details = "Expires in -0 days",
+            //        createdAt = "2025-12-01T09:27:48.2656841",
+            //        resolved = false,
+            //        resolutionNote = (string?)null
+            //    },
+            //    new {
+            //        id = 4,
+            //        licenseId = 2,
+            //        productName = "Microsoft Word",
+            //        eventType = "underuse",
+            //        severity = "low",
+            //        details = "Assigned=0, Total=100",
+            //        createdAt = "2025-12-01T09:27:48.2631084",
+            //        resolved = false,
+            //        resolutionNote = (string?)null
+            //    },
+            //    new {
+            //        id = 3,
+            //        licenseId = 1,
+            //        productName = "Microsoft Office",
+            //        eventType = "unused",
+            //        severity = "low",
+            //        details = "No installations found for this license",
+            //        createdAt = "2025-12-01T09:27:48.2602439",
+            //        resolved = false,
+            //        resolutionNote = (string?)null
+            //    },
+            //    new {
+            //        id = 2,
+            //        licenseId = 1,
+            //        productName = "Microsoft Office",
+            //        eventType = "expiry",
+            //        severity = "high",
+            //        details = "Expires in -0 days",
+            //        createdAt = "2025-12-01T09:27:48.2546737",
+            //        resolved = false,
+            //        resolutionNote = (string?)null
+            //    },
+            //    new {
+            //        id = 1,
+            //        licenseId = 1,
+            //        productName = "Microsoft Office",
+            //        eventType = "underuse",
+            //        severity = "low",
+            //        details = "Assigned=0, Total=100",
+            //        createdAt = "2025-12-01T09:27:48.0534151",
+            //        resolved = false,
+            //        resolutionNote = (string?)null
+            //    }
+            //};
+            var results = await _engine.GetEventsAsync();
             return Ok(results);
         }
 
