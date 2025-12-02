@@ -6,7 +6,7 @@ namespace InventoryService.Services
     {
         
             Task<List<License>> GetExpiringLicensesAsync(int days);
-        
+        Task<bool> UpdateExpiryDateAsync(int licenseId, DateTime newDate);
         Task<List<License>> GetAllAsync();
         Task<License?> GetByIdAsync(int id);
         Task<License> CreateAsync(License license);

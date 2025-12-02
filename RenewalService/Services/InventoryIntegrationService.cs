@@ -26,5 +26,16 @@ namespace RenewalService.Services
             var result = await response.Content.ReadFromJsonAsync<List<ExternalLicenseDto>>();
             return result ?? new List<ExternalLicenseDto>();
         }
+        // Add this method to the class
+        public async Task<bool> UpdateLicenseExpiryAsync(int licenseId, DateTime newDate)
+        {
+            // Payload matches the UpdateExpiryDto we created in Part 1
+            var payload = new { NewExpiryDate = newDate };
+
+            // Call the Inventory API
+            var response = await _httpClient.PutAsJsonAsync($"api/Licenses/{licenseId}/expiry", payload);
+
+            return response.IsSuccessStatusCode;
+        }
     }
 }

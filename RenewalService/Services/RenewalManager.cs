@@ -66,5 +66,31 @@ namespace RenewalService.Services
             record.AdminNotes += $" || Renewed on {DateTime.Now}: {note}";
             await _repo.UpdateAsync(record);
         }
+        // Add this method to RenewalManager class
+        public async Task<RenewalRecord> CreateAndApproveAsync(RenewalRecord record)
+        {
+            // 1. Set Status to Approved immediately
+            record.Status = "Approved";
+            record.AdminNotes += $" | Auto-Approved on {DateTime.UtcNow}";
+
+            // 2. Save to Renewal DB
+            await _repo.AddAsync(record);
+
+            // 3. SYNC TO INVENTORY SERVICE IMMEDIATELY
+            bool success = await _inventory.UpdateLicenseExpiryAsync(
+                record.LinkedLicenseId,
+                record.TargetExpiryDate
+            );
+
+            // 4. Handle Sync Failure (Optional but recommended)
+            if (!success)
+            {
+                record.AdminNotes += " | WARNING: Inventory Sync Failed!";
+                // Update the record we just saved with the warning note
+                await _repo.UpdateAsync(record);
+            }
+
+            return record;
+        }
     }
 }

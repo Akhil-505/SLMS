@@ -29,12 +29,12 @@ namespace RenewalService.Controllers
             return Ok(await _repo.GetAllAsync());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(RenewalRecord record)
-        {
-            await _repo.AddAsync(record);
-            return Ok(record);
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> Create(RenewalRecord record)
+        //{
+        //    await _repo.AddAsync(record);
+        //    return Ok(record);
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -97,6 +97,26 @@ namespace RenewalService.Controllers
             {
                 await _manager.MarkAsRenewedAsync(id, note);
                 return Ok("Marked as renewed.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        // Add this endpoint
+        [HttpPost]
+        public async Task<IActionResult> CreateAndApprove(RenewalRecord record)
+        {
+            try
+            {
+                // Use the Manager to do the "Create + Sync" workflow
+                var result = await _manager.CreateAndApproveAsync(record);
+
+                return Ok(new
+                {
+                    message = "Renewal created and approved. Inventory updated.",
+                    data = result
+                });
             }
             catch (Exception ex)
             {

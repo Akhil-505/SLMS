@@ -80,5 +80,18 @@ namespace InventoryService.Services
 
             return await _repo.GetExpiringLicensesAsync(days);
         }
+        //changes
+        public async Task<bool> UpdateExpiryDateAsync(int licenseId, DateTime newDate)
+        {
+            var license = await _repo.GetByIdAsync(licenseId);
+            if (license == null) return false;
+
+            // Logic: Update the date and add a note
+            license.ExpiryDate = newDate;
+            license.Notes += $" [Renewed on {DateTime.UtcNow.ToShortDateString()}]";
+
+            await _repo.UpdateAsync(license);
+            return true;
+        }
     }
 }
