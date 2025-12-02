@@ -126,7 +126,7 @@
     },
 
     {
-      "DownstreamPathTemplate": "/api/installationhistory/{everything}",
+      "DownstreamPathTemplate": "/api/History/{installedSoftwareId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -134,7 +134,7 @@
           "Port": 5001
         }
       ],
-      "UpstreamPathTemplate": "/inventory/installations/history/{everything}",
+      "UpstreamPathTemplate": "/inventory/history/{installedSoftwareId}",
       "UpstreamHttpMethod": [ "GET" ]
     },
 

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251129092942_intial")]
-    partial class intial
+    [Migration("20251201052330_InventoryDb")]
+    partial class InventoryDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,10 +82,7 @@ namespace InventoryService.Migrations
                     b.Property<int>("LicenseId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -94,7 +91,7 @@ namespace InventoryService.Migrations
 
                     b.HasIndex("LicenseId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Entitlements");
                 });
@@ -173,6 +170,9 @@ namespace InventoryService.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Assigned")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,2)");
@@ -342,7 +342,7 @@ namespace InventoryService.Migrations
 
                     b.HasOne("InventoryService.Models.User", "User")
                         .WithMany("Entitlements")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Device");
 

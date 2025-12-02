@@ -140,6 +140,9 @@ namespace InventoryService.Migrations
                     b.Property<DateTime>("InstallDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("InstalledSoftwareId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("LicenseId")
                         .HasColumnType("int");
 

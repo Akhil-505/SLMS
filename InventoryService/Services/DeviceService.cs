@@ -30,6 +30,7 @@ namespace InventoryService.Services
             if (existing == null) throw new Exception("Device not found");
 
             existing.Hostname = update.Hostname;
+            existing.DeviceId= update.DeviceId;
             existing.Department = update.Department;
             existing.Location = update.Location;
             existing.OwnerUserId = update.OwnerUserId;

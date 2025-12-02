@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace InventoryService.Migrations
 {
     /// <inheritdoc />
-    public partial class intial : Migration
+    public partial class InventoryDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,12 +16,13 @@ namespace InventoryService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                       ,
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Vendor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SKU = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LicenseType = table.Column<int>(type: "int", nullable: false),
                     TotalEntitlements = table.Column<int>(type: "int", nullable: false),
+                    Assigned = table.Column<int>(type: "int", nullable: false),
                     Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Currency = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PurchaseDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -38,7 +39,7 @@ namespace InventoryService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        ,
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Vendor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -97,7 +98,7 @@ namespace InventoryService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                      ,
                     DeviceId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Hostname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OwnerUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -121,10 +122,9 @@ namespace InventoryService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                       ,
                     LicenseId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     DeviceId = table.Column<int>(type: "int", nullable: true),
                     AssignedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpiresAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -144,8 +144,8 @@ namespace InventoryService.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Entitlements_Users_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Entitlements_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId");
                 });
@@ -155,7 +155,7 @@ namespace InventoryService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                       ,
                     DeviceId = table.Column<int>(type: "int", nullable: false),
                     LicenseId = table.Column<int>(type: "int", nullable: true),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -217,9 +217,9 @@ namespace InventoryService.Migrations
                 column: "LicenseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entitlements_UserId1",
+                name: "IX_Entitlements_UserId",
                 table: "Entitlements",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_InstallationHistories_InstalledSoftwareId",

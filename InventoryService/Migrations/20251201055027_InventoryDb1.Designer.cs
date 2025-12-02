@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251129134322_intial2")]
-    partial class intial2
+    [Migration("20251201055027_InventoryDb1")]
+    partial class InventoryDb1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -142,6 +142,9 @@ namespace InventoryService.Migrations
 
                     b.Property<DateTime>("InstallDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("InstalledSoftwareId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("LicenseId")
                         .HasColumnType("int");

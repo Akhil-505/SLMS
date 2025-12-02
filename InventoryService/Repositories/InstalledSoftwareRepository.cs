@@ -1,5 +1,7 @@
 ﻿using InventoryService.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq.Expressions;
 
 namespace InventoryService.Repositories
 {
@@ -44,6 +46,11 @@ namespace InventoryService.Repositories
         {
             _db.InstalledSoftware.Remove(install);
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<bool> ExistsAsync(Expression<Func<InstalledSoftware, bool>> predicate)
+        {
+            return await _db.InstalledSoftware.AnyAsync(predicate);
         }
     }
 }

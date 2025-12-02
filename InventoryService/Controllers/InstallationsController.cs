@@ -27,9 +27,9 @@ namespace InventoryService.Controllers
         }
 
         [HttpPost("install")]
-        public async Task<IActionResult> Install(InstalledSoftware install, [FromQuery] string performedBy)
+        public async Task<IActionResult> Install(InstalledSoftware install, [FromQuery] string performedBy,string Action)
         {
-            var created = await _service.InstallAsync(install, performedBy);
+            var created = await _service.InstallAsync(install, performedBy,Action);
             return Ok(created);
         }
 
