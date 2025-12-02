@@ -273,12 +273,12 @@
         }
       ],
       "UpstreamPathTemplate": "/mail/{everything}",
-      "UpstreamHttpMethod": [ "POST" ],
+      "UpstreamHttpMethod": [ "POST", "GET" ],
       //"AuthenticationOptions": {
       //  "AuthenticationProviderKey": "JwtBearer",
       //  "AllowedScopes": []
       //}
-      "UpstreamHttpMethod": [ "GET" ]
+      //"UpstreamHttpMethod": [ "GET" ]
     },
     //Renewal Service
     {
