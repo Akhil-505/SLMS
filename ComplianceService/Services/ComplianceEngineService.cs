@@ -61,7 +61,7 @@ namespace ComplianceService.Services
                 {
                     double utilization = (double)lic.Assigned / lic.TotalEntitlements;
 
-                    if (utilization < 0.25)
+                    if (utilization < 0.40)
                     {
                         var existing = await _events.GetExistingOpenEventAsync(lic.LicenseId, "underuse");
 

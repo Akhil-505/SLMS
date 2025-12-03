@@ -15,8 +15,7 @@ namespace InventoryService.Migrations
                 name: "Licenses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Vendor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SKU = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -37,8 +36,7 @@ namespace InventoryService.Migrations
                 name: "SoftwareCatalog",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Vendor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -96,8 +94,7 @@ namespace InventoryService.Migrations
                 name: "Devices",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     DeviceId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Hostname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OwnerUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -121,8 +118,7 @@ namespace InventoryService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LicenseId = table.Column<int>(type: "int", nullable: false),
+,                    LicenseId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     DeviceId = table.Column<int>(type: "int", nullable: true),
@@ -155,8 +151,7 @@ namespace InventoryService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DeviceId = table.Column<int>(type: "int", nullable: false),
+,                    DeviceId = table.Column<int>(type: "int", nullable: false),
                     LicenseId = table.Column<int>(type: "int", nullable: true),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Version = table.Column<string>(type: "nvarchar(max)", nullable: false),

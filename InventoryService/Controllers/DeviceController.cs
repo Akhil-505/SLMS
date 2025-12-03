@@ -17,7 +17,7 @@ namespace InventoryService.Controllers
             _service = service;
         }
 
-        [Authorize(Roles = "Admin, Administrator")]
+        //[Authorize(Roles = "Admin, Administrator")]
         [HttpGet]
         public async Task<IActionResult> GetAll() =>
             Ok(await _service.GetAllAsync());

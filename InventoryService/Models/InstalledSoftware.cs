@@ -5,7 +5,8 @@ namespace InventoryService.Models
     public class InstalledSoftware
     {
         public int Id { get; set; }
-     
+
+        public int installedSoftwareId { get; set; }
         public int DeviceId { get; set; }
         [JsonIgnore]
         public Device? Device { get; set; }

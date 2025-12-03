@@ -65,7 +65,7 @@ namespace InventoryService.Repositories
             // 2. Run the Query
             return await _db.Licenses
                 .Where(l => l.ExpiryDate != null &&             // Must have an expiry date
-                            l.ExpiryDate > today &&             // (Optional) Ignore items already expired
+                            //l.ExpiryDate > today &&             // (Optional) Ignore items already expired
                             l.ExpiryDate <= cutoffDate)         // Expires before the cutoff
                 .OrderBy(l => l.ExpiryDate)                     // Sort by most urgent first
                 .ToListAsync();
